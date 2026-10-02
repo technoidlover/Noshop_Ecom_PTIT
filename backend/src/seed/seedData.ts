@@ -157,7 +157,7 @@ export const seedDatabase = async () => {
         category: catMap.get('dien-thoai-tablet'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&auto=format&fit=crop&q=80',
           'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.9,
@@ -174,7 +174,8 @@ export const seedDatabase = async () => {
         category: catMap.get('dien-thoai-tablet'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.8,
         numReviews: 12
@@ -190,7 +191,8 @@ export const seedDatabase = async () => {
         category: catMap.get('laptop-may-tinh'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 5.0,
         numReviews: 7
@@ -206,7 +208,8 @@ export const seedDatabase = async () => {
         category: catMap.get('laptop-may-tinh'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.7,
         numReviews: 4
@@ -222,7 +225,8 @@ export const seedDatabase = async () => {
         category: catMap.get('thiet-bi-am-thanh'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.9,
         numReviews: 31
@@ -238,7 +242,8 @@ export const seedDatabase = async () => {
         category: catMap.get('thiet-bi-am-thanh'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.9,
         numReviews: 50
@@ -254,7 +259,8 @@ export const seedDatabase = async () => {
         category: catMap.get('dong-ho-vong-deo'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.8,
         numReviews: 9
@@ -270,7 +276,8 @@ export const seedDatabase = async () => {
         category: catMap.get('dong-ho-vong-deo'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.9,
         numReviews: 6
@@ -286,7 +293,8 @@ export const seedDatabase = async () => {
         category: catMap.get('thoi-trang-phu-kien'),
         seller: fashionSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.7,
         numReviews: 24
@@ -302,7 +310,8 @@ export const seedDatabase = async () => {
         category: catMap.get('thoi-trang-phu-kien'),
         seller: fashionSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.8,
         numReviews: 15
@@ -318,7 +327,8 @@ export const seedDatabase = async () => {
         category: catMap.get('gia-dung-thong-minh'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1558317374-067fb5f30001?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.9,
         numReviews: 8
@@ -334,7 +344,8 @@ export const seedDatabase = async () => {
         category: catMap.get('gia-dung-thong-minh'),
         seller: techSeller._id,
         images: [
-          'https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=800&auto=format&fit=crop&q=80'
+          'https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=800&auto=format&fit=crop&q=80',
+          'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&auto=format&fit=crop&q=80'
         ],
         rating: 4.8,
         numReviews: 19

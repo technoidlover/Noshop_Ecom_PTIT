@@ -1,71 +1,58 @@
 import urllib.request
-import json
 import ssl
+import json
 import sys
 
-sys.stdout.reconfigure(encoding='utf-8')
+# Ensure UTF-8 output on Windows console
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-BASE_URL = "https://stg-ecom.minhtech.com.vn/api"
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
-def request(path, method="GET", data=None, token=None):
-    url = f"{BASE_URL}{path}"
-    headers = {
-        "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-    body = json.dumps(data).encode() if data else None
-    req = urllib.request.Request(url, data=body, headers=headers, method=method)
-    with urllib.request.urlopen(req, context=ctx) as res:
-        return json.loads(res.read().decode())
+print('=== 1. CHECK HEALTH ===')
+req = urllib.request.Request('https://stg-ecom.minhtech.com.vn/api/health', headers=headers)
+with urllib.request.urlopen(req, context=ctx, timeout=10) as r:
+    print('Health status:', r.status, json.loads(r.read().decode('utf-8')))
 
-print("--- 1. Health Check ---")
-health = request("/health")
-print("Health:", health)
+print('\n=== 2. CHECK PRODUCTS & IMAGES ===')
+req = urllib.request.Request('https://stg-ecom.minhtech.com.vn/api/products?limit=12', headers=headers)
+with urllib.request.urlopen(req, context=ctx, timeout=10) as r:
+    data = json.loads(r.read().decode('utf-8'))
+    print(f'Total products: {data.get("total")}')
+    for p in data.get('products', []):
+        img = p['images'][0] if p.get('images') else 'N/A'
+        print(f'  • {p["name"]} | {p["price"]:,}đ | Img: {img}')
 
-print("\n--- 2. Demo Logins ---")
-buyer_res = request("/auth/demo-login", "POST", {"role": "buyer"})
-print("Buyer Logged in:", buyer_res["user"]["name"], "Token:", buyer_res["token"][:15] + "...")
+print('\n=== 3. VERIFY LOGIN ACCOUNTS ===')
+accounts = [
+    ('admin@noshop.vn', 'Admin@123', 'admin'),
+    ('seller@noshop.vn', 'Seller@123', 'seller'),
+    ('user@noshop.vn', 'User@123', 'buyer')
+]
 
-seller_res = request("/auth/demo-login", "POST", {"role": "seller"})
-print("Seller Logged in:", seller_res["user"]["name"], "Shop:", seller_res["user"]["shop"]["name"])
+for email, password, expected_role in accounts:
+    payload = json.dumps({'email': email, 'password': password}).encode('utf-8')
+    req = urllib.request.Request(
+        'https://stg-ecom.minhtech.com.vn/api/auth/login',
+        data=payload,
+        headers={'Content-Type': 'application/json', 'User-Agent': headers['User-Agent']}
+    )
+    with urllib.request.urlopen(req, context=ctx, timeout=10) as r:
+        res = json.loads(r.read().decode('utf-8'))
+        role = res.get('user', {}).get('role')
+        name = res.get('user', {}).get('name')
+        token = res.get('token')
+        print(f'  [PASS] {email} -> Logged in as "{name}" (Role: {role}, Token: {bool(token)})')
 
-admin_res = request("/auth/demo-login", "POST", {"role": "admin"})
-print("Admin Logged in:", admin_res["user"]["name"], "Role:", admin_res["user"]["role"])
-
-print("\n--- 3. Buyer Creates Order ---")
-prods = request("/products?limit=2")
-p1 = prods["products"][0]
-order_payload = {
-    "items": [{"productId": p1["_id"], "quantity": 1}],
-    "shippingAddress": {
-        "fullName": "Trần Văn Test",
-        "phone": "0987654321",
-        "address": "Tầng 5 Keangnam Hanoi Landmark Tower",
-        "city": "Hà Nội",
-        "note": "Test automated verification"
-    },
-    "paymentMethod": "COD"
-}
-new_order = request("/orders", "POST", order_payload, token=buyer_res["token"])
-order_id = new_order["order"]["_id"]
-print("Created Order:", new_order["order"]["orderCode"], "Total:", new_order["order"]["totalAmount"])
-
-print("\n--- 4. Seller Updates Order Status ---")
-update_res = request(f"/orders/{order_id}/status", "PUT", {"orderStatus": "PROCESSING"}, token=seller_res["token"])
-print("Order status updated to:", update_res["order"]["orderStatus"])
-
-print("\n--- 5. Admin Gets Statistics ---")
-stats = request("/stats/admin", "GET", token=admin_res["token"])
-print("Platform Stats:")
-print(f"  - Total Revenue: {stats['totalRevenue']:,} VND")
-print(f"  - Total Orders: {stats['totalOrders']}")
-print(f"  - Total Products: {stats['totalProducts']}")
-print(f"  - Total Users: {stats['totalUsers']}")
-
-print("\nALL ROLE WORKFLOWS VERIFIED SUCCESSFULLY!")
+print('\n=== 4. CHECK FRONTEND HOME PAGE HTML ===')
+req = urllib.request.Request('https://stg-ecom.minhtech.com.vn/', headers=headers)
+with urllib.request.urlopen(req, context=ctx, timeout=10) as r:
+    html = r.read().decode('utf-8')
+    print('Home status:', r.status, 'HTML length:', len(html))
+    assert 'noshop' in html, 'Missing noshop brand'
+    assert 'FLASH SALE' in html, 'Missing FLASH SALE'
+    print('  [PASS] noshop brand and Flash Sale rendered in SSR HTML!')

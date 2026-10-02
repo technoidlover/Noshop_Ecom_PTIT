@@ -1,4 +1,4 @@
-﻿# Logs
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -58,3 +58,7 @@ coverage/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Archives
+*.tar.gz
+
